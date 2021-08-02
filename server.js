@@ -19,11 +19,17 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
+app.get("/api", function (req, res){
+  res.json({unix: Math.round((new Date())), utc: new Date().toUTCString()});
+})
+
 
 // your first API endpoint... 
-app.get("/api/:date", function (req, res) {
+app.get("/api/:date",
+
+function (req, res) {
   let date = req.params.date
-  if (Number.isNaN(Date.parse(date)) &&  date.length === parseInt(date).toString()){
+  if (Number.isNaN(Date.parse(date)) &&  date.length === parseInt(date).toString().length){
 
     var unix = parseInt(date)
     var utc = new Date(parseInt(date))
